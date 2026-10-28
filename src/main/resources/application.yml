@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  mvc:
+    problemdetails:
+      enabled: true
+  jackson:
+    time-zone: UTC
+    default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: true
+
+#  application:
+#    name: wallet-sandbox
