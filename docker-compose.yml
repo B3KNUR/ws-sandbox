@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: wallet-sandbox-postgres
+    environment:
+      POSTGRES_DB: wallet_db
+      POSTGRES_USER: wallet
+      POSTGRES_PASSWORD: wallet
+    ports:
+      - "5433:5432"
+    volumes:
+      - wallet-sandbox-pgdata:/var/lib/postgresql/data
+
+volumes:
+  wallet-sandbox-pgdata:

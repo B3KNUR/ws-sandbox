@@ -1,10 +1,12 @@
 package kz.kbtu.walletsandbox.mapper;
 
 import kz.kbtu.walletsandbox.dto.response.FeeResponse;
+import kz.kbtu.walletsandbox.dto.response.PageResponse;
 import kz.kbtu.walletsandbox.dto.response.TransferResponse;
 import kz.kbtu.walletsandbox.dto.response.WalletResponse;
 import kz.kbtu.walletsandbox.model.TransferResult;
 import kz.kbtu.walletsandbox.model.Wallet;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -31,6 +33,17 @@ public class WalletMapper {
             result.add(toWalletResponse(wallet));
         }
         return result;
+    }
+
+    public PageResponse<WalletResponse> toWalletPageResponse(Page<Wallet> page) {
+        List<WalletResponse> content = toWalletResponseList(page.getContent());
+        return new PageResponse<>(
+                content,
+                page.getNumber(),
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages()
+        );
     }
 
     public TransferResponse toTransferResponse(TransferResult transfer) {

@@ -5,10 +5,13 @@ import jakarta.validation.constraints.Positive;
 import kz.kbtu.walletsandbox.dto.request.AmountRequest;
 import kz.kbtu.walletsandbox.dto.request.CreateWalletRequest;
 import kz.kbtu.walletsandbox.dto.request.UpdateStatusRequest;
+import kz.kbtu.walletsandbox.dto.response.PageResponse;
 import kz.kbtu.walletsandbox.dto.response.WalletResponse;
 import kz.kbtu.walletsandbox.mapper.WalletMapper;
 import kz.kbtu.walletsandbox.model.Wallet;
 import kz.kbtu.walletsandbox.service.WalletService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -42,8 +45,8 @@ public class WalletController {
     }
 
     @GetMapping
-    public List<WalletResponse> getAll() {
-        return walletMapper.toWalletResponseList(walletService.getAll());
+    public PageResponse<WalletResponse> getAll(@PageableDefault(size = 20, sort = "id") Pageable pageable) {
+        return walletMapper.toWalletPageResponse(walletService.getAll(pageable));
     }
 
     @GetMapping("/{id}")

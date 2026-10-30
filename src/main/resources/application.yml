@@ -1,6 +1,15 @@
 spring:
   profiles:
-    active: dev
+    active: "@spring.profiles.active@"
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/wallet_db}
+    username: ${DB_USERNAME:wallet}
+    password: ${DB_PASSWORD:wallet}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
   mvc:
     problemdetails:
       enabled: true
@@ -9,6 +18,3 @@ spring:
     default-property-inclusion: non_null
     deserialization:
       fail-on-unknown-properties: true
-
-#  application:
-#    name: wallet-sandbox
